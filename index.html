@@ -1,0 +1,602 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Numbers — English Test | PSIDE</title>
+  <style>
+    :root{
+      --bg:#0f1220;
+      --card:#1b1f3b;
+      --accent:#617cff;
+      --text:#f2f3fb;
+      --muted:#b5bad8;
+      --success:#55d68b;
+      --error:#ff7777;
+      --line:#343b68
+    }
+
+    *{
+      box-sizing:border-box
+    }
+
+    body{
+      margin:0;
+      padding:24px 16px 60px;
+      font-family:Segoe UI,Arial,sans-serif;
+      background:linear-gradient(135deg,#0f1220,#171d43);
+      color:var(--text)
+    }
+
+    .card{
+      max-width:850px;
+      margin:18px auto;
+      background:var(--card);
+      padding:clamp(20px,4vw,34px);
+      border:1px solid var(--line);
+      border-radius:18px;
+      box-shadow:0 12px 35px #0005
+    }
+
+    h1,h2{
+      line-height:1.25
+    }
+    
+    h1{
+      margin-top:0
+    }
+    
+    h2{
+      font-size:1.25rem
+    }
+
+    .subtitle,.muted{
+      color:var(--muted);
+      line-height:1.55
+    }
+
+    .tag{
+      display:inline-block;
+      background:#29315f;
+      color:#dce2ff;
+      padding:5px 10px;
+      border-radius:20px;
+      font-size:.82rem;
+      margin:3px 4px 3px 0
+    }
+
+    .prompt{
+      font-size:1.08rem;
+      line-height:1.6;
+      margin:18px 0
+    }
+
+    input,textarea{
+      width:100%;
+      padding:13px;
+      border:1px solid #59618f;
+      border-radius:9px;
+      background:#10152e;
+      color:white;
+      font:inherit;
+      margin:8px 0
+    }
+
+    textarea{
+      min-height:110px;
+      resize:vertical
+    }
+
+    button{
+      border:0;
+      border-radius:9px;
+      padding:12px 17px;
+      background:var(--accent);
+      color:white;
+      font-size:1rem;
+      font-weight:600;
+      cursor:pointer;
+      margin:7px 5px 7px 0
+    }
+
+    button:hover{
+      filter:brightness(1.12)
+    }
+    
+    button:disabled{
+      opacity:.45;
+      cursor:not-allowed
+    }
+
+    button.secondary{
+      background:#303967;
+      border:1px solid #4a568f
+    }
+
+    button.option{
+      display:block;
+      text-align:left;
+      width:100%;
+      background:#29315f;
+      border:1px solid #47548d;
+      font-weight:500
+    }
+
+    button.option.selected{
+      outline:2px solid #a9b8ff;
+      background:#39477f
+    }
+
+    .feedback{
+      min-height:28px;
+      font-weight:700;
+      margin:12px 0
+    }
+    
+    .success{
+      color:var(--success)
+    }
+    
+    .error{
+      color:var(--error)
+    }
+
+    .progress{
+      height:9px;
+      background:#10152e;
+      border-radius:20px;
+      overflow:hidden;
+      margin:12px 0 5px
+    }
+    
+    .bar{
+      height:100%;
+      background:var(--accent);
+      width:0;
+      transition:width .2s
+    }
+
+    .topline{
+      display:flex;
+      justify-content:space-between;
+      gap:12px;
+      flex-wrap:wrap;
+      color:var(--muted);
+      font-size:.92rem
+    }
+
+    .hint{
+      background:#111831;
+      border-left:3px solid var(--accent);
+      padding:11px 13px;
+      border-radius:7px;
+      color:#dce1ff;
+      line-height:1.5
+    }
+
+    .result{
+      font-size:1.15rem
+    }
+    
+    .review{
+      border-top:1px solid var(--line);
+      padding:12px 0
+    }
+    
+    .review strong{
+      color:#dce2ff
+    }
+
+    footer{
+      text-align:center;
+      color:var(--muted);
+      font-size:.85rem;
+      margin:25px auto
+    }
+
+    .hidden{
+      display:none
+    }
+
+    @media(max-width:520px){
+      body{
+        padding:12px 9px 35px
+      }
+
+      .card{
+        padding:19px 16px
+      }
+    }
+
+  </style>
+
+</head>
+
+<body>
+
+  <main class="card" id="app">
+
+    <h1>🔢 Numbers — English Test</h1>
+
+    <p class="subtitle">Teste seus conhecimentos sobre números em inglês. São 40 questões variadas, com correção automática e avanço após acertar.</p>
+    
+    <div>
+      <span class="tag">Cardinal & ordinal numbers</span><span class="tag">Time</span><span class="tag">Money</span>
+      <span class="tag">Dates & years</span><span class="tag">Fractions & decimals</span><span class="tag">Collective numbers</span>
+    </div>
+
+    <div class="hint"><strong>Como funciona:</strong> responda às questões de múltipla escolha, digitação e fala. Nas questões de fala, permita o uso do microfone. A atividade de fala usa reconhecimento de voz do navegador e funciona melhor no Chrome ou Edge, com conexão à internet.</div>
+    
+    <p class="muted">A escrita pode ser feita com ou sem hífen em números compostos. O sistema ignora diferenças entre maiúsculas/minúsculas e pontuação simples. Em respostas abertas, confira a grafia com atenção.</p>
+    
+    <button onclick="startTest()">Começar teste</button>
+
+  </main>
+
+  <footer>© PSIDE — English + Technology</footer>
+
+  <script>
+    
+    
+const questions = [
+    {type:"choice",cat:"Cardinal numbers",q:"Which number is 'forty-two'?",opts:["24","42","14","40"],a:"42"},
+    {type:"text",cat:"Cardinal numbers",q:"Write 19 in English.",answers:["nineteen"]},
+    {type:"choice",cat:"Cardinal numbers",q:"Choose the correct spelling of 80.",opts:["eighteen","eighty","eight","eightieth"],a:"eighty"},
+    {type:"text",cat:"Cardinal numbers",q:"Write 306 in English.",answers:["three hundred and six","three hundred six"]},
+    {type:"choice",cat:"Cardinal numbers",q:"What is the correct spelling of 1,500?",opts:["one thousand five hundred","one hundred five thousand","fifteen hundredth","one thousand fifty"],a:"one thousand five hundred"},
+    {type:"text",cat:"Cardinal numbers",q:"Write 2,048 in English.",answers:["two thousand and forty-eight","two thousand forty-eight"]},
+
+    {type:"choice",cat:"Ordinal numbers",q:"What is the ordinal form of 3?",opts:["threeth","third","threeth","thirteenth"],a:"third"},
+    {type:"text",cat:"Ordinal numbers",q:"Write 21st in English.",answers:["twenty-first","twenty first"]},
+    {type:"choice",cat:"Ordinal numbers",q:"Which abbreviation means 'forty-second'?",opts:["42th","42rd","42nd","42st"],a:"42nd"},
+    {type:"text",cat:"Ordinal numbers",q:"Write 100th in English.",answers:["one hundredth","hundredth"]},
+
+    {type:"choice",cat:"Time",q:"How do you say 3:15?",opts:["It's quarter past three","It's quarter to three","It's half past three","It's fifteen to three"],a:"It's quarter past three"},
+    {type:"choice",cat:"Time",q:"What time is 'half past seven'?",opts:["7:15","6:30","7:30","8:30"],a:"7:30"},
+    {type:"text",cat:"Time",q:"Write 8:45 using 'to'.",answers:["It's quarter to nine"]},
+    {type:"choice",cat:"Time",q:"What does 'ten to six' mean?",opts:["6:10","5:50","5:10","6:50"],a:"5:50"},
+
+    {type:"speech",cat:"Speaking",q:"Say this number aloud in English:",say:"Thirty-seven"},
+
+    {type:"choice",cat:"Money",q:"How do you read $5.25?",opts:["five dollars and twenty-five cents","five dollar twenty-five","fifty dollars and twenty-five cents","five pounds and twenty-five pence"],a:"five dollars and twenty-five cents"},
+    {type:"text",cat:"Money",q:"Write $1.50 in words.",answers:["one dollar and fifty cents","one dollar fifty cents"]},
+    {type:"choice",cat:"Money",q:"How do you say 99¢?",opts:["ninety-nine dollars","nine dollars and nine cents","ninety-nine cents","ninety cents and nine"],a:"ninety-nine cents"},
+    {type:"text",cat:"Money",q:"Write $12.05 in words.",answers:["twelve dollars and five cents","twelve dollars five cents"]},
+
+    {type:"choice",cat:"Dates",q:"In British-style date reading, how do you read 4th July?",opts:["July four","the fourth of July","four Julyth","the four of July"],a:"the fourth of July"},
+    {type:"text",cat:"Dates",q:"Write '12th October' in words.",answers:["the twelfth of october","twelfth of october"]},
+    {type:"choice",cat:"Dates",q:"Which month comes after September?",opts:["November","August","October","December"],a:"October"},
+    {type:"text",cat:"Dates",q:"Write the date 1st January in words.",answers:["the first of january","first of january"]},
+
+    {type:"choice",cat:"Years",q:"How is 1906 commonly read in the traditional two-part style?",opts:["one thousand nine hundred and six","nineteen hundred oh six","nineteen oh six hundred","ninety hundred six"],a:"nineteen hundred oh six"},
+    {type:"choice",cat:"Years",q:"How do you usually read the year 1998?",opts:["nineteen ninety-eight","one thousand nine hundred ninety-eight only","nineteen hundred ninety-eight","ninety nineteen eight"],a:"nineteen ninety-eight"},
+    {type:"text",cat:"Years",q:"Write the year 2005 in words.",answers:["two thousand and five","two thousand five"]},
+
+    {type:"text",cat:"Fractions",q:"Write 1/2 in English.",answers:["one half","a half"]},
+    {type:"choice",cat:"Fractions",q:"How do you read 3/4?",opts:["three fourth","third quarter","three quarters","three fourths only"],a:"three quarters"},
+    {type:"text",cat:"Fractions",q:"Write 2/3 in words.",answers:["two thirds"]},
+    {type:"choice",cat:"Fractions",q:"What is 1/4?",opts:["one third","one quarter","one fifth","one half"],a:"one quarter"},
+
+    {type:"text",cat:"Decimals",q:"Write 2.5 in English. Use 'point'.",answers:["two point five"]},
+    {type:"choice",cat:"Decimals",q:"How do you read 0.75?",opts:["zero seventy-five","zero point seven five","seventy-five point zero","zero and seventy-five"],a:"zero point seven five"},
+    {type:"text",cat:"Decimals",q:"Write 3.14 in words, digit by digit after the point.",answers:["three point one four"]},
+
+    {type:"choice",cat:"Collective numbers",q:"What is a group of twelve called?",opts:["a dozen","a score","a decade","a century"],a:"a dozen"},
+    {type:"text",cat:"Collective numbers",q:"Write the collective expression for 20.",answers:["a score","score"]},
+    {type:"choice",cat:"Collective numbers",q:"A period of ten years is a…",opts:["century","millennium","decade","dozen"],a:"decade"},
+    {type:"text",cat:"Collective numbers",q:"Write the word for a period of 100 years.",answers:["a century","century"]},
+    {type:"choice",cat:"Collective numbers",q:"What does 'a gross' represent?",opts:["12 items","20 items","100 items","144 items"],a:"144 items"},
+    {type:"text",cat:"Collective numbers",q:"Write the word for a period of 1,000 years.",answers:["a millennium","millennium"]},
+    {type:"choice",cat:"Collective numbers",q:"In a game score, what does 'one point' mean?",opts:["One unit of score","A group of twelve","Ten years","One hundred years"],a:"One unit of score"},
+
+    {type:"choice",cat:"Age",q:"Choose the correct answer to 'How old are you?'",opts:["I have 18 years old.","I am 18 years old.","I am 18 years.","I have 18."],a:"I am 18 years old."},
+    {type:"text",cat:"Age",q:"Complete: 'She is ___ years old.' (ela tem 25 anos)",answers:["25","twenty-five","twenty five"]},
+
+    {type:"speech",cat:"Speaking",q:"Say the correct answer to 'How old are you?' with age = 20.",say:"I am twenty years old"}
+];
+
+let index = 0;
+let correctCount = 0;
+let answered = false;
+let recognition = null;
+
+const app = document.getElementById("app");
+
+function norm(text) {
+    return String(text)
+        .toLowerCase()
+        .trim()
+        .replace(/[’']/g, "'")
+        .replace(/[.,!?;:]/g, "")
+        .replace(/-/g, " ")
+        .replace(/\s+/g, " ");
+}
+
+function startTest() {
+    index = 0;
+    correctCount = 0;
+    render();
+}
+
+function render() {
+    answered = false;
+
+    const q = questions[index];
+
+    app.innerHTML = `
+        <div class="topline">
+            <span>Questão ${index + 1} de ${questions.length}</span>
+            <span>${q.cat}</span>
+        </div>
+
+        <div class="progress">
+            <div class="bar" style="width:${index / questions.length * 100}%"></div>
+        </div>
+
+        <h2>${q.q}</h2>
+        <p class="prompt">${q.prompt || ""}</p>
+
+        <div id="answerArea"></div>
+
+        <p id="feedback" class="feedback" aria-live="polite"></p>
+
+        <button id="next" disabled onclick="nextQuestion()">Avançar →</button>
+
+        <p class="muted">
+            Acertos: ${correctCount} · Para avançar, acerte a questão.
+        </p>
+    `;
+
+    const area = document.getElementById("answerArea");
+
+    if (q.type === "choice") {
+        const shuffled = [...q.opts].sort(() => Math.random() - 0.5);
+
+        shuffled.forEach(opt => {
+            const button = document.createElement("button");
+
+            button.className = "option";
+            button.textContent = opt;
+
+            button.onclick = () => check(opt, button);
+
+            area.appendChild(button);
+        });
+
+    } else if (q.type === "text") {
+        const input = document.createElement("textarea");
+
+        input.placeholder = "Digite sua resposta em inglês…";
+        input.setAttribute("aria-label", "Sua resposta");
+
+        const button = document.createElement("button");
+
+        button.textContent = "Verificar resposta";
+        button.onclick = () => check(input.value);
+
+        area.append(input, button);
+
+        input.addEventListener("keydown", event => {
+            if (event.key === "Enter" && event.ctrlKey) {
+                check(input.value);
+            }
+        });
+
+    } else if (q.type === "speech") {
+        const sample = document.createElement("p");
+
+        sample.className = "hint";
+        sample.textContent = "Frase para falar: “" + q.say + "”";
+
+        area.appendChild(sample);
+
+        const listen = document.createElement("button");
+
+        listen.textContent = "🔊 Ouvir pronúncia";
+        listen.className = "secondary";
+        listen.onclick = () => speak(q.say);
+
+        area.appendChild(listen);
+
+        const mic = document.createElement("button");
+
+        mic.textContent = "🎙️ Gravar / reconhecer fala";
+        mic.onclick = () => recordSpeech(q);
+
+        area.appendChild(mic);
+
+        const manual = document.createElement("input");
+
+        manual.placeholder = "Se o microfone não funcionar, digite o que falou…";
+
+        area.appendChild(manual);
+
+        const verify = document.createElement("button");
+
+        verify.textContent = "Verificar texto";
+        verify.onclick = () => check(manual.value);
+
+        area.appendChild(verify);
+    }
+}
+
+function check(value, button) {
+    if (answered) return;
+
+    const q = questions[index];
+    let correct = false;
+
+    if (q.type === "choice") {
+        correct = value === q.a;
+
+    } else if (q.type === "text") {
+        correct = q.answers.some(answer => norm(answer) === norm(value));
+
+    } else if (q.type === "speech") {
+        correct = norm(value) === norm(q.say);
+    }
+
+    const feedback = document.getElementById("feedback");
+
+    if (correct) {
+        answered = true;
+        correctCount++;
+
+        feedback.textContent = "✓ Muito bem! Resposta correta.";
+        feedback.className = "feedback success";
+
+        document.getElementById("next").disabled = false;
+
+        if (button) {
+            button.classList.add("selected");
+        }
+
+    } else {
+        feedback.textContent = "Ainda não. Revise a escrita ou a pronúncia e tente novamente.";
+        feedback.className = "feedback error";
+    }
+}
+
+function speak(text) {
+    if (!("speechSynthesis" in window)) {
+        alert("Seu navegador não oferece leitura de voz.");
+        return;
+    }
+
+    speechSynthesis.cancel();
+
+    const utterance = new SpeechSynthesisUtterance(text);
+    utterance.lang = "en-US";
+
+    speechSynthesis.speak(utterance);
+}
+
+function recordSpeech(q) {
+    const SpeechRecognition =
+        window.SpeechRecognition || window.webkitSpeechRecognition;
+
+    if (!SpeechRecognition) {
+        alert("Reconhecimento de voz não disponível neste navegador. Use Chrome ou Edge, ou digite a resposta.");
+        return;
+    }
+
+    try {
+        if (recognition) {
+            recognition.abort();
+        }
+
+        recognition = new SpeechRecognition();
+
+        recognition.lang = "en-US";
+        recognition.interimResults = false;
+        recognition.maxAlternatives = 3;
+
+        const buttons = document.querySelectorAll("#answerArea button");
+
+        buttons.forEach(button => {
+            if (button.textContent.includes("Gravar")) {
+                button.disabled = true;
+            }
+        });
+
+        recognition.onresult = event => {
+            const result = event.results[0][0].transcript;
+
+            const feedback = document.getElementById("feedback");
+
+            feedback.textContent = "Você falou: “" + result + "”";
+
+            check(result);
+        };
+
+        recognition.onerror = event => {
+            const feedback = document.getElementById("feedback");
+
+            feedback.textContent =
+                "Não foi possível reconhecer a fala (" + event.error + "). Tente novamente ou digite a resposta.";
+
+            feedback.className = "feedback error";
+        };
+
+        recognition.onend = () => {
+            buttons.forEach(button => button.disabled = false);
+        };
+
+        recognition.start();
+
+    } catch (error) {
+        document.getElementById("feedback").textContent =
+            "Não foi possível iniciar o microfone. Verifique a permissão do navegador.";
+    }
+}
+
+function nextQuestion() {
+    if (!answered) return;
+
+    index++;
+
+    if (index < questions.length) {
+        render();
+        return;
+    }
+
+    const percentage = Math.round(
+        correctCount / questions.length * 100
+    );
+
+    app.innerHTML = `
+        <h1>🎉 Teste concluído!</h1>
+
+        <p class="result">
+            Você acertou <strong>${correctCount} de ${questions.length}</strong>
+            questões (${percentage}%).
+        </p>
+
+        <div class="progress">
+            <div class="bar" style="width:100%"></div>
+        </div>
+
+        <p>
+            ${
+                percentage >= 90
+                ? "Excelente domínio de Numbers!"
+                : percentage >= 70
+                ? "Muito bom! Revise os tópicos em que teve dúvida."
+                : percentage >= 50
+                ? "Bom esforço! Vale revisar e tentar novamente."
+                : "Continue praticando: números em inglês exigem atenção aos padrões de escrita e leitura."
+            }
+        </p>
+
+        <button onclick="startTest()">Refazer teste</button>
+
+        <button class="secondary" onclick="showAnswerKey()">
+            Ver gabarito
+        </button>
+    `;
+}
+
+function showAnswerKey() {
+    const key = questions.map((q, i) => `
+        <div class="review">
+            <strong>${i + 1}. ${q.cat}</strong><br>
+            ${q.type === "choice"
+                ? q.a
+                : q.type === "speech"
+                ? q.say
+                : q.answers[0]}
+        </div>
+    `).join("");
+
+    app.insertAdjacentHTML("beforeend", `
+        <h2>Gabarito</h2>
+        ${key}
+    `);
+}
+
+startTest();
+
+
+  </script>
+</body>
+</html>
